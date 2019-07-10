@@ -23,6 +23,10 @@
     "lint": "eslint --fix {src,bench}/**/*.{ts,tsx}",
     "precommit": "lint-staged && tsc"
   },
+  "dependencies": {
+    "fbjs": "^1.0.0",
+    "relay-runtime": "https://github.com/mattkrick/relay/tarball/c11564fd90f1b4146e57605e1ab90400d4b0641f"
+  },
   "devDependencies": {
     "@types/relay-runtime": "https://github.com/mattkrick/relay-runtime-strict-types/tarball/3cd987da18e0bf2f4ddf45b605305e2a7b81944e",
     "@typescript-eslint/eslint-plugin": "^1.11.0",
@@ -30,16 +34,12 @@
     "eslint": "^6.0.1",
     "eslint-config-prettier": "^6.0.0",
     "eslint-plugin-prettier": "^3.1.0",
-    "fbjs": "^1.0.0",
-    "relay-runtime": "^5.0.0",
     "husky": "^3.0.0",
     "lint-staged": "^9.2.0",
     "prettier": "^1.18.2",
     "typescript": "^3.5.2"
   },
   "peerDependencies": {
-    "fbjs": "^1.0.0",
-    "relay-runtime": "^5.0.0",
     "tslib": "^1.10.0"
   },
   "lint-staged": {

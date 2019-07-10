@@ -1,11 +1,14 @@
-import ErrorUtils from 'fbjs/lib/ErrorUtils';
-import invariant from 'fbjs/lib/invariant';
-import normalizeRelayPayload from 'relay-runtime/lib/normalizeRelayPayload';
-import RelayRecordSource from 'relay-runtime/lib/RelayRecordSource';
-import RelayReader from 'relay-runtime/lib/RelayReader';
-import RelayRecordSourceMutator from 'relay-runtime/lib/RelayRecordSourceMutator';
-import RelayRecordSourceProxy from 'relay-runtime/lib/RelayRecordSourceProxy';
-import RelayRecordSourceSelectorProxy from 'relay-runtime/lib/RelayRecordSourceSelectorProxy';
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const tslib_1 = require("tslib");
+const ErrorUtils_1 = tslib_1.__importDefault(require("fbjs/lib/ErrorUtils"));
+const invariant_1 = tslib_1.__importDefault(require("fbjs/lib/invariant"));
+const normalizeRelayPayload_1 = tslib_1.__importDefault(require("relay-runtime/lib/normalizeRelayPayload"));
+const RelayRecordSource_1 = tslib_1.__importDefault(require("relay-runtime/lib/RelayRecordSource"));
+const RelayReader_1 = tslib_1.__importDefault(require("relay-runtime/lib/RelayReader"));
+const RelayRecordSourceMutator_1 = tslib_1.__importDefault(require("relay-runtime/lib/RelayRecordSourceMutator"));
+const RelayRecordSourceProxy_1 = tslib_1.__importDefault(require("relay-runtime/lib/RelayRecordSourceProxy"));
+const RelayRecordSourceSelectorProxy_1 = tslib_1.__importDefault(require("relay-runtime/lib/RelayRecordSourceSelectorProxy"));
 /**
  * Coordinates the concurrent modification of a `Store`
  * due to client, server, and optimistic updates
@@ -15,7 +18,7 @@ import RelayRecordSourceSelectorProxy from 'relay-runtime/lib/RelayRecordSourceS
  */
 class LinearPublishQueue {
     constructor(store, handlerProvider, getDataID) {
-        this._backup = RelayRecordSource.create();
+        this._backup = RelayRecordSource_1.default.create();
         this._currentStoreIdx = 0;
         this._gcHold = null;
         this._getDataID = getDataID;
@@ -28,7 +31,7 @@ class LinearPublishQueue {
      * Schedule applying an optimistic updates on the next `run()`.
      */
     applyUpdate(updater) {
-        invariant(findUpdaterIdx(this._pendingUpdates, updater) === -1, 'LinearPublishQueue: Cannot apply the same update function more than ' + 'once concurrently.');
+        invariant_1.default(findUpdaterIdx(this._pendingUpdates, updater) === -1, 'LinearPublishQueue: Cannot apply the same update function more than ' + 'once concurrently.');
         this._pendingUpdates.push({ kind: 'optimistic', updater });
     }
     /**
@@ -132,14 +135,14 @@ class LinearPublishQueue {
         }
     }
     _handleUpdates(updates, isCommit) {
-        const sink = RelayRecordSource.create();
-        const mutator = new RelayRecordSourceMutator(this._store.getSource(), sink, isCommit ? undefined : this._backup);
-        const store = new RelayRecordSourceProxy(mutator, this._getDataID, this._handlerProvider);
+        const sink = RelayRecordSource_1.default.create();
+        const mutator = new RelayRecordSourceMutator_1.default(this._store.getSource(), sink, isCommit ? undefined : this._backup);
+        const store = new RelayRecordSourceProxy_1.default(mutator, this._getDataID, this._handlerProvider);
         for (let ii = 0; ii < updates.length; ii++) {
             const update = updates[ii];
             switch (update.kind) {
                 case 'client':
-                    ErrorUtils.applyWithGuard(update.updater, null, [store], null, 'LinearPublishQueue:applyUpdates');
+                    ErrorUtils_1.default.applyWithGuard(update.updater, null, [store], null, 'LinearPublishQueue:applyUpdates');
                     break;
                 case 'optimistic':
                     applyOptimisticUpdate(update.updater, store, this._getDataID);
@@ -159,24 +162,24 @@ function applyOptimisticUpdate(optimisticUpdate, store, getDataID) {
     if (optimisticUpdate.operation) {
         const { selectorStoreUpdater, operation, response } = optimisticUpdate;
         if (response) {
-            const { source, fieldPayloads } = normalizeRelayPayload(operation.root, response, null, {
+            const { source, fieldPayloads } = normalizeRelayPayload_1.default(operation.root, response, null, {
                 getDataID
             });
             store.publishSource(source, fieldPayloads);
             if (selectorStoreUpdater) {
                 const selectorData = lookupSelector(source, operation.fragment, operation);
-                const selectorStore = new RelayRecordSourceSelectorProxy(store, operation.fragment);
-                ErrorUtils.applyWithGuard(selectorStoreUpdater, null, [selectorStore, selectorData], null, 'LinearPublishQueue:applyUpdates');
+                const selectorStore = new RelayRecordSourceSelectorProxy_1.default(store, operation.fragment);
+                ErrorUtils_1.default.applyWithGuard(selectorStoreUpdater, null, [selectorStore, selectorData], null, 'LinearPublishQueue:applyUpdates');
             }
         }
         else {
-            const selectorStore = new RelayRecordSourceSelectorProxy(store, operation.fragment);
-            ErrorUtils.applyWithGuard(selectorStoreUpdater, null, [selectorStore], null, 'LinearPublishQueue:applyUpdates');
+            const selectorStore = new RelayRecordSourceSelectorProxy_1.default(store, operation.fragment);
+            ErrorUtils_1.default.applyWithGuard(selectorStoreUpdater, null, [selectorStore], null, 'LinearPublishQueue:applyUpdates');
         }
     }
     else if (optimisticUpdate.storeUpdater) {
         const { storeUpdater } = optimisticUpdate;
-        ErrorUtils.applyWithGuard(storeUpdater, null, [store], null, 'LinearPublishQueue:applyUpdates');
+        ErrorUtils_1.default.applyWithGuard(storeUpdater, null, [store], null, 'LinearPublishQueue:applyUpdates');
     }
     else {
         const { source, fieldPayloads } = optimisticUpdate;
@@ -188,9 +191,9 @@ function applyServerPayloadUpdate(payload, store) {
     store.publishSource(source, fieldPayloads);
     if (updater) {
         const selector = operation && operation.fragment;
-        invariant(selector != null, 'RelayModernEnvironment: Expected a selector to be provided with updater function.');
+        invariant_1.default(selector != null, 'RelayModernEnvironment: Expected a selector to be provided with updater function.');
         const selectorData = lookupSelector(source, selector, operation);
-        const selectorStore = new RelayRecordSourceSelectorProxy(store, selector);
+        const selectorStore = new RelayRecordSourceSelectorProxy_1.default(store, selector);
         updater(selectorStore, selectorData);
     }
 }
@@ -198,7 +201,7 @@ function findUpdaterIdx(updates, updater) {
     return updates.findIndex((update) => update.updater === updater);
 }
 function lookupSelector(source, selector, owner) {
-    return RelayReader.read(source, selector, owner).data;
+    return RelayReader_1.default.read(source, selector, owner).data;
 }
-export default LinearPublishQueue;
+exports.default = LinearPublishQueue;
 //# sourceMappingURL=index.js.map

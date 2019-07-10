@@ -25,6 +25,8 @@ const publishQueue = new LinearPublishQueue(store, handlerProvider, defaultGetDa
 new Environment({store, handlerProvider, network, publishQueue})
 ```
 
+Also requires installing my fork. See package.json for the hash
+
 ## License
 
 MIT

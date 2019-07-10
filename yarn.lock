@@ -1432,10 +1432,9 @@ regexpp@^2.0.1:
   resolved "https://registry.yarnpkg.com/regexpp/-/regexpp-2.0.1.tgz#8d19d31cf632482b589049f8281f93dbcba4d07f"
   integrity sha512-lv0M6+TkDVniA3aD1Eg0DVpfU/booSu7Eev3TDO/mZKHBfVjgCGTV4t4buppESEYDtkArYFOxTJWv6S5C+iaNw==
 
-relay-runtime@^5.0.0:
+"relay-runtime@https://github.com/mattkrick/relay/tarball/c11564fd90f1b4146e57605e1ab90400d4b0641f":
   version "5.0.0"
-  resolved "https://registry.yarnpkg.com/relay-runtime/-/relay-runtime-5.0.0.tgz#7c688ee621d6106a2cd9f3a3706eb6d717c7f660"
-  integrity sha512-lrC2CwfpWWHBAN608eENAt5Bc5zqXXE2O9HSo8tc6Gy5TxfK+fU+x9jdwXQ2mXxVPgANYtYeKzU5UTfcX0aDEw==
+  resolved "https://github.com/mattkrick/relay/tarball/c11564fd90f1b4146e57605e1ab90400d4b0641f#1127e431508f54048b1bedc1325f22a50d9e444b"
   dependencies:
     "@babel/runtime" "^7.0.0"
     fbjs "^1.0.0"

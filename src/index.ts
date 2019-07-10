@@ -15,7 +15,6 @@ import {
 } from 'relay-runtime'
 import normalizeRelayPayload from 'relay-runtime/lib/normalizeRelayPayload'
 import RelayRecordSource from 'relay-runtime/lib/RelayRecordSource'
-
 import RelayReader from 'relay-runtime/lib/RelayReader'
 import RelayRecordSourceMutator from 'relay-runtime/lib/RelayRecordSourceMutator'
 import RelayRecordSourceProxy from 'relay-runtime/lib/RelayRecordSourceProxy'
