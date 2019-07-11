@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "fbjs": "^1.0.0",
-    "relay-runtime": "https://github.com/mattkrick/relay/tarball/afc570b9bc0ae983df89b36f9ddb4f296f1af11a"
+    "relay-runtime": "https://github.com/mattkrick/relay/tarball/dbd07bab510551e0c421aad70e5b57bb86520d32"
   },
   "devDependencies": {
     "@types/relay-runtime": "https://github.com/mattkrick/relay-runtime-strict-types/tarball/3cd987da18e0bf2f4ddf45b605305e2a7b81944e",
