@@ -10,6 +10,7 @@ Publish changes in the order they're received
 
 - By default, Relay publishes changes in an arbitrary order, making local and optimistic updates unpredictable based on latency.
 - By default, Relay double normalizes every optimistic update & reconstructs the state tree more often than necessary
+- For more info, read the blog post: [https://dev.to/mattkrick/distributed-state-101-why-i-forked-facebook-s-relay-1p7d](https://dev.to/mattkrick/distributed-state-101-why-i-forked-facebook-s-relay-1p7d)
 
 ## High level architecture
 
